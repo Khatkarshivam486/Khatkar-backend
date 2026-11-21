@@ -1,0 +1,17 @@
+{
+  "name": "backendfullproject",
+  "version": "1.0.0",
+  "description": "a backend at khatkar- hub",
+  "keywords": [
+    "javascript",
+    "backend",
+    "khatkar"
+  ],
+  "license": "ISC",
+  "author": "Shivam Khatkar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
