@@ -1,8 +1,8 @@
 // Db connect
 
 import dotenv from "dotenv"
-import express from "express"
-import connectDB from "./db/index.js";
+import connectDB from "./db/index.js"
+import { app } from "./app.js";
 // require('dotenv').config({path: './env'})
 
 dotenv.config({path: './env'})
@@ -13,11 +13,15 @@ connectDB()
         throw error
     })
     app.listen(process.env.PORT ||  8000, ()=>{
-        console.log(`Server connected success on port ${process.env.PORT}`);
+        console.log(`⚙️ 🟢🚀 Server connected success on port : ${process.env.PORT}`);
     })
 })
 .catch((error) => {
     console.log("Mongo db connection failed !!! ", error);
+    console.log("err name: type ",error.name);
+    console.log("err msg: desc ",error.message);
+    console.log("err stack: stack trace ",error.stack);
+    
 })
 
 
