@@ -1,30 +1,31 @@
-import {v2 as cloudinary} from "cloudinary"
-import { log } from "console";
-import fs from "fs"
+import {v2 as cloudinary} from "cloudinary";
+import fs from "fs";
 
- cloudinary.config({ 
-        cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-        api_key: process.env.CLOUDINARY_API_KEY, 
-        api_secret: process.env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Fs file linking & Unlinking
-const uploadOnCloudinary = async (localfilePath) => {
+const uploadOnCloudinary = async (localFilePath) => {
     try {
-        if (!localfilePath) return null
-        // upload the file on cloudinary
-        const response = await cloudinary.uploader.upload(localfilePath, {public_id: "unknown", resource_type: "auto"},function(error, result){
-            if(!err){
-                console.log(result);
-            }
-            throw err
-        })
-        console.log("file uploading ", response.url); // we gets pulic url here 
+        if(!localFilePath) return null;
+
+        const response = await cloudinary.uploader.upload(localFilePath, {resource_type: "auto", asset_folder: "videoTube"})
+
+        if(fs.existsSync(localFilePath)){
+            fs.unlinkSync(localFilePath);
+        }
+
+        // console.log("uploaded on cloudinary", response.url); 
+        
         return response;
+
     } catch (error) {
-        fs.unlinkSync(localfilePath) // remove the locally saved temporary file as the upload operation got failed
+        fs.unlinkSync(localFilePath)
+
         return null;
     }
 }
 
-export { uploadOnCloudinary}
+export { uploadOnCloudinary }
